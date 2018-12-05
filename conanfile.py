@@ -27,7 +27,7 @@ class LibpngConan(ConanFile):
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = "shared=False", "fPIC=True"
+    default_options = "shared=True", "fPIC=True"
 
     source_subfolder = "source_subfolder"
 
@@ -39,8 +39,6 @@ class LibpngConan(ConanFile):
 
     def requirements(self):
         self.requires.add("zlib/1.2.11@conanos/stable")
-
-        config_scheme(self)
 
 
     def config_options(self):
@@ -55,6 +53,8 @@ class LibpngConan(ConanFile):
             del self.settings.arch
             self.options.remove("fPIC")
             self.options.remove("shared")
+        
+        config_scheme(self)
         
     def source(self):
         base_url = "https://sourceforge.net/projects/libpng/files/libpng16/"
